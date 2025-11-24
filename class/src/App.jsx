@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CountAtom } from './store/atom/count'
-import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
 export default function App() {
   return (
@@ -12,6 +12,7 @@ export default function App() {
 function Count() {
   return <div>
     <CountRender />
+    <Button />
   </div>
 
 }
@@ -20,16 +21,30 @@ function CountRender() {
   const count = useRecoilValue(CountAtom)
   return <div>
     <p>Count is {count}</p>
-    <Button></Button>
   </div>
 }
 
+// This will re-render when ever button is clicked since the count value is changed
+// function Button() {
+//   console.log("re-render");
+
+//   const [count, setCount] = useRecoilState(CountAtom)
+//   return <div>
+//     <button onClick={() => setCount(count + 1)}>
+//       Increase
+//     </button>
+//     <button onClick={() => setCount(count - 1)}> Decrease</button>
+//   </div>
+// } 
+
+// setCount(count => count +/- 1) prevents from re-render.
 function Button() {
-  const [count, setCount] = useRecoilState(CountAtom)
+  const setCount = useSetRecoilState(CountAtom)
+  console.log("re-button re-render");
   return <div>
-    <button onClick={() => setCount(count + 1)}>
+    <button onClick={() => setCount(count => count + 1)}>
       Increase
     </button>
-    <button onClick={() => setCount(count - 1)}> Decrease</button>
+    <button onClick={() => setCount(count => count - 1)}> Decrease</button>
   </div>
 } 
