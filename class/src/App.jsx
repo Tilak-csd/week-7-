@@ -21,6 +21,14 @@ function CountRender() {
   const count = useRecoilValue(CountAtom)
   return <div>
     <p>Count is {count}</p>
+    <CountEvenRender />
+  </div>
+}
+
+function CountEvenRender(){
+  const count = useRecoilValue(CountAtom)
+  return <div>
+    {count % 2 == 0 ? "It is Even." : null}
   </div>
 }
 
